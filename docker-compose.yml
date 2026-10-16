@@ -23,6 +23,7 @@ services:
       DB_USER: "root"
       DB_PASS: ""
       DB_NAME: "suarakita"
+      GEMINI_API_KEY: "${GEMINI_API_KEY:-}"
     volumes:
       - .:/var/www/html:z
     depends_on:
