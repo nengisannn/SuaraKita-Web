@@ -37,7 +37,7 @@ $aiReply = '';
 
 // 1. OPSI A: Menggunakan Google Gemini API jika GEMINI_API_KEY tersedia
 if (!empty($geminiApiKey)) {
-    $url = "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=" . urlencode($geminiApiKey);
+    $url = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=" . urlencode($geminiApiKey);
     
     $payload = [
         "contents" => [
