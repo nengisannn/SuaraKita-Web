@@ -34,6 +34,7 @@ $systemPrompt = "BATASAN PERAN & DOMAIN KETAT:\n" .
     "Jawablah selalu dalam Bahasa Indonesia yang santun, ramah, dan ringkas.";
 
 $aiReply = '';
+$aiProvider = 'fallback';
 
 // 1. OPSI A: Menggunakan Google Gemini API jika GEMINI_API_KEY tersedia
 if (!empty($geminiApiKey)) {
@@ -64,6 +65,7 @@ if (!empty($geminiApiKey)) {
         $resData = json_decode($response, true);
         if (isset($resData['candidates'][0]['content']['parts'][0]['text'])) {
             $aiReply = trim($resData['candidates'][0]['content']['parts'][0]['text']);
+            $aiProvider = 'gemini';
         }
     }
 }
@@ -99,6 +101,7 @@ if (empty($aiReply) && !empty($openaiApiKey)) {
         $resData = json_decode($response, true);
         if (isset($resData['choices'][0]['message']['content'])) {
             $aiReply = trim($resData['choices'][0]['message']['content']);
+            $aiProvider = 'openai';
         }
     }
 }
@@ -111,7 +114,8 @@ if (empty($aiReply)) {
 // Kembalikan Response JSON ke Frontend
 echo json_encode([
     'status' => 'success',
-    'reply'  => $aiReply
+    'reply'  => $aiReply,
+    'provider' => $aiProvider
 ]);
 
 
